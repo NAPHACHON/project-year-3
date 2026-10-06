@@ -1,0 +1,11 @@
+{
+    "name": "CyberCafe System",
+    "short_name": "CyberCafe",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#090d16",
+    "theme_color": "#22c55e",
+    "description": "Internet Cafe Management System Client",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false
+}

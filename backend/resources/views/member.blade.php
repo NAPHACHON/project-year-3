@@ -1,0 +1,9 @@
+@extends('layout') @section('content')
+<header class="topbar"><div class="brand"><span class="brand-mark">⚡</span><div><b>CyberCafe Member</b><small>ระบบจัดการร้านเกมและอินเทอร์เน็ตคาเฟ่</small></div></div><div class="top-actions"><span id="who" class="muted"></span><button class="ghost" onclick="logout()">ออกจากระบบ</button></div></header>
+<div class="page"><div id="toast"></div><section class="hero"><div><p id="hero-kind" class="eyebrow">MEMBER PASS</p><h1 id="hero-title">เลือกเครื่องที่อยากเล่น</h1><p id="hero-copy" class="muted">เลือกเวลาเล่น ดูยอดเงิน และจบการใช้งานได้ด้วยตัวเอง</p></div><div class="server-pill">● ระบบพร้อมใช้งาน</div></section>
+<div id="stats" class="stats"></div><section class="panel"><h2>เงินส่วนต่างรอคืนที่เคาน์เตอร์</h2><div id="refunds"></div></section><div class="grid-main"><section class="panel"><div class="panel-head"><div><h2>สถานะเครื่อง</h2><p class="muted">เลือกเครื่องเพื่อดูรายละเอียดและดำเนินการ</p></div><select id="zone-filter" onchange="render()"><option value="">ทุกโซน</option></select></div><div id="stations" class="station-grid"></div></section><aside class="panel"><div class="panel-head"><div><h2 id="side-title">รายการที่กำลังเปิด</h2><p class="muted">เวลาทั้งหมดคำนวณจากเซิร์ฟเวอร์</p></div></div><div id="open-sessions"></div><hr><h3>ชั่วโมงสะสมของฉัน</h3><div id="rewards"></div></aside></div>
+
+<section id="history-panel" class="panel"><div class="panel-head"><div><h2>รายการย้อนหลัง</h2><p class="muted">ใช้ตรวจสอบการจองและยอดค่าบริการ</p></div><button class="ghost" onclick="loadData()">รีเฟรชข้อมูล</button></div><div class="table-wrap"><table><thead><tr><th>รหัส</th><th>สมาชิก</th><th>เครื่อง</th><th>สถานะ</th><th>เวลา</th><th>ชำระแล้ว</th><th>ค่าบริการจริง</th><th>ส่วนต่าง</th></tr></thead><tbody id="history"></tbody></table></div></section>
+</div>
+@include('partials.booking-dialogs')
+@endsection

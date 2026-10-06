@@ -1,0 +1,101 @@
+{
+  "name": "CyberCafe REST API",
+  "version": "2.1.0",
+  "base_url": "/api/v1",
+  "authentication": "Bearer token from /auth/login",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "description": "ตรวจว่า API ทำงาน (ไม่ตรวจฐานข้อมูล)",
+      "authentication": false
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "description": "เข้าสู่ระบบ"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/register",
+      "description": "สมัครสมาชิก"
+    },
+    {
+      "method": "GET",
+      "path": "/data",
+      "description": "เครื่อง รายการเปิด ประวัติ และ refunds ที่รอคืน; สมาชิกเห็นเฉพาะรายการตนเอง"
+    },
+    {
+      "method": "POST",
+      "path": "/bookings",
+      "description": "สมาชิกจอง 1–24 ชั่วโมง ยอด API ใช้ราคาของเซิร์ฟเวอร์",
+      "body": {
+        "station_id": 1,
+        "hours": 2
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sessions/{id}/cancel",
+      "description": "ยกเลิกการจองก่อนเริ่มฟรี หรือจบรายการ active และคำนวณส่วนต่าง; เจ้าของหรือ admin",
+      "body": {
+        "use_reward": false
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/admin/bookings",
+      "description": "ผู้ดูแลจองแทนสมาชิก",
+      "body": {
+        "user_id": 2,
+        "station_id": 1,
+        "hours": 2
+      },
+      "role": "admin"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/sessions/{id}/start",
+      "description": "ยืนยันรับยอดจองที่เคาน์เตอร์ก่อนเริ่มเวลา",
+      "body": {
+        "payment_received": true
+      },
+      "role": "admin"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/sessions/{id}/finish",
+      "description": "ปิดเซสชันและคิดเงิน",
+      "body": {
+        "use_reward": false
+      },
+      "role": "admin"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/stations/{id}/status",
+      "description": "เปลี่ยนสถานะเครื่อง"
+    },
+    {
+      "method": "GET",
+      "path": "/sessions/{id}/settlement?use_reward=0",
+      "description": "ดูยอดประมาณการโดยไม่จบและไม่ใช้สิทธิ์จริง; เจ้าของหรือ admin"
+    },
+    {
+      "method": "POST",
+      "path": "/sessions/{id}/end",
+      "body": {
+        "use_reward": false
+      },
+      "description": "จบและคำนวณ actual/refund/balance_due; เจ้าของหรือ admin"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/sessions/{id}/refund",
+      "role": "admin",
+      "description": "บันทึกหลังคืนเงินสดจริง; กดซ้ำไม่สร้างเงินคืนเพิ่ม"
+    }
+  ],
+  "note": "Open /api or /api/v1/health to test connectivity. Protected endpoints require a Bearer token; login is POST, not GET.",
+  "billing": "Start after counter receipt; ceil elapsed minutes; round charge to cents; refund pending when prepaid exceeds actual charge. Scheduled end is a reminder, billing stops on end."
+}

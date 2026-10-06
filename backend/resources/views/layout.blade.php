@@ -1,0 +1,2 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}"><title>CyberCafe Desk</title><link rel="stylesheet" href="/css/cafe.css"></head><body><main id="app">@yield('content')</main>@if(request()->is("dashboard", "flutter"))<script src="/js/cafe.js"></script>@endif</body></html>
